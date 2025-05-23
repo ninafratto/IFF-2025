@@ -1,0 +1,58 @@
+;
+;	File 'topol.top' was generated
+;	By user: audreycollins (1005)
+;	On host: sulphur
+;	At date: Tue Mar 11 17:53:09 2025
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	              :-) GROMACS - gmx pdb2gmx, 2023.1-conda_forge (-:
+;	
+;	Executable:   /home/audreycollins/anaconda3/bin.AVX2_256/gmx
+;	Data prefix:  /home/audreycollins/anaconda3
+;	Working dir:  /home/audreycollins/Desktop/IFF/GROMOS-to_OPLS/test
+;	Command line:
+;	  gmx pdb2gmx -ff oplsaa -water spc -f 1-chain.gro -o proc.gro
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./oplsaa.ff/forcefield.itp"
+
+; Include cellullose itp file
+#include "single-cellulose-50mer-chain-1.itp"
+
+#ifdef POSRES_CELL
+#include "./cellulose-restrained.itp"
+#endif
+
+; Include water topology
+#include "./oplsaa.ff/spc.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./oplsaa.ff/ions.itp"
+
+; Include topologies for malodors
+#include "./MBA.itp"
+#include "./HEP.itp"
+#include "./ETB.itp"
+
+[ system ]
+; Name
+Good gRace! Old Maple Actually Chews Slate in water
+
+[ molecules ]
+; Compound        #mols
+Other               1
+MBA		    1
+HEP		    1
+ETB		    1
+SOL              5261
